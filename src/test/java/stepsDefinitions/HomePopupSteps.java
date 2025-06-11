@@ -6,6 +6,8 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
+import utils.WebDriverFactory;
+
 import java.time.Duration;
 
 import static org.testng.AssertJUnit.assertTrue;
@@ -13,16 +15,12 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class HomePopupSteps {
 
-    WebDriver driver;
+    WebDriver driver = Hooks.getDriver();
     HomePage homePage;
 
     @Given("the user is on homepage")
     public void openCandyMapperHomepage(){
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
         driver.get("https://candymapper.com");
-
         homePage = new HomePage(driver);
     }
 
@@ -39,10 +37,6 @@ public class HomePopupSteps {
     @Then("the homepage is displayed")
     public void verifyHomePageDisplayed() {
         assertTrue("Main content is not visible", homePage.isMainContentVisible());
-        driver.quit();
+
     }
-
-
-
-
 }
